@@ -14,28 +14,55 @@ public class Methodes {
         String output = groet(naam);
         System.out.println(output);
 
-        //variabele rente
-        float maandRente = (float) 0.055;
-        System.out.println("Voer een bedrag in");
-        //koppel de variabele getal aan het ingevoerde getal
-        var beginBedrag = s.nextFloat();
+        System.out.println("Welk bedrag wil je inleggen?");
+        float bedrag = s.nextFloat();
+        System.out.println("Hoeveel jaar wil je sparen?");
+        int jaar = s.nextInt();
 
-        float totaal = berekenEindBedrag(beginBedrag, maandRente);
+
+        float totaal = berekenEindBedrag(bedrag, jaar, naam);
         //string weergeven voor rentes afgerond op 2 decimalen
-        System.out.printf("%n Gespaard bedrag na 10 jaar met rente van " + maandRente + "% is $ " + ": %.2f", totaal);
+        System.out.printf("Na " + jaar + " jaar heb je dit bedrag op je rekening staan: %.2f", totaal);
 
     }
 
 
-    private static float berekenEindBedrag(float bedrag, float rente) {
-        //variabele aanmaken voor output tafel
-        String output;
+    private static float berekenEindBedrag(float bedrag, int jaar, String naam) {
+        float rente;
+        if (bedrag > 1000) {
+            rente = (float) 0.002;
+        } else if (bedrag >= 600 & bedrag <= 1000) {
+            rente = (float) 0.01;
+        } else if (bedrag >= 300 & bedrag < 600) {
+            rente = (float) 0.02;
+        } else if (bedrag >= 100 & bedrag < 300) {
+            rente = (float) 0.03;
+        } else if (bedrag >= 0 & bedrag < 100) {
+            rente = 0;
+        } else {
+            rente = (float) 0.1;
+        }
 
-        // getallen van een tot tien in lus aanmaken
-        for (int x = 1; x <= 10; x++) {
+        if (bedrag >= 0) {
+            //string voor weergeven ingevoerde gegevens en bijbehorende rente
+            String zin = "Beste " + naam + ", met een beginbedrag van " + bedrag + " krijg je een jaarlijkse rente van " + rente * 100 + "%";
+            //zin weergeven
+            System.out.println(zin);
+        } else {
+            //string voor weergeven ingevoerde gegevens en bijbehorende rente
+            String zin = "Beste " + naam + ", met een schuld van " + bedrag + " heb je een jaarlijkse debetrente van " + rente * 100 + "%";
+            //zin weergeven
+            System.out.println(zin);
+        }
+
+        // getallen van een tot aantal jaar in lus aanmaken
+        for (int x = 1; x <= jaar; x++) {
             //getal wordt elk jaar vermeerderd met rente r
             bedrag = bedrag + bedrag * rente;
+            //string weergeven voor rentes afgerond op 2 decimalen
+
         }
+
         return bedrag;
     }
 
